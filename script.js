@@ -328,7 +328,7 @@ function showGroupSelectionModal(subject, clSubjects, n1Subjects, n2Subjects) {
     `;
     n1Subjects.forEach(s => {
         s.sessions.forEach(session => {
-            groupHTML += `<div class="schedule-item">• Thứ ${session.day + 1}, Tiết ${session.period}, Phòng ${session.room}</div>`;
+            groupHTML += `<div class="schedule-item">• Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room}</div>`;
         });
         if (s.instructor) {
             groupHTML += `<div class="instructor-info">👨‍🏫 ${s.instructor}</div>`;
@@ -346,7 +346,7 @@ function showGroupSelectionModal(subject, clSubjects, n1Subjects, n2Subjects) {
     `;
     n2Subjects.forEach(s => {
         s.sessions.forEach(session => {
-            groupHTML += `<div class="schedule-item">• Thứ ${session.day + 1}, Tiết ${session.period}, Phòng ${session.room}</div>`;
+            groupHTML += `<div class="schedule-item">• Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room}</div>`;
         });
         if (s.instructor) {
             groupHTML += `<div class="instructor-info">👨‍🏫 ${s.instructor}</div>`;
@@ -422,7 +422,7 @@ function showSubjectModal(subject) {
         scheduleHTML += '<div style="margin-top: 8px;"><strong>🏛️ Lớp chung (CL):</strong></div><ul>';
         clSubjects.forEach(s => {
             s.sessions.forEach(session => {
-                scheduleHTML += `<li>Thứ ${session.day + 1}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
+                scheduleHTML += `<li>Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
             });
         });
         scheduleHTML += '</ul>';
@@ -433,7 +433,7 @@ function showSubjectModal(subject) {
             scheduleHTML += '<div style="margin-left: 15px;"><strong>Nhóm N1:</strong></div><ul>';
             n1Subjects.forEach(s => {
                 s.sessions.forEach(session => {
-                    scheduleHTML += `<li>Thứ ${session.day + 1}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
+                    scheduleHTML += `<li>Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
                 });
             });
             scheduleHTML += '</ul>';
@@ -442,7 +442,7 @@ function showSubjectModal(subject) {
             scheduleHTML += '<div style="margin-left: 15px;"><strong>Nhóm N2:</strong></div><ul>';
             n2Subjects.forEach(s => {
                 s.sessions.forEach(session => {
-                    scheduleHTML += `<li>Thứ ${session.day + 1}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
+                    scheduleHTML += `<li>Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
                 });
             });
             scheduleHTML += '</ul>';
@@ -496,7 +496,8 @@ function createScheduleTable() {
         timeCell.className = 'time-slot';
         timeCell.innerHTML = `<div>Tiết ${slot.period}</div><div style="font-size: 10px; font-weight: normal;">${slot.time}</div>`;
         row.appendChild(timeCell);
-        for (let day = 1; day <= 7; day++) {
+        // Create cells for days 2-7 (Thứ 2 to Thứ 7) plus day 1 for Sunday
+        for (let day = 2; day <= 7; day++) {
             const cell = document.createElement('td');
             cell.className = 'schedule-cell';
             cell.dataset.day = day;
@@ -506,6 +507,15 @@ function createScheduleTable() {
             cell.addEventListener('dragleave', handleDragLeave);
             row.appendChild(cell);
         }
+        // Add Sunday cell (day 1)
+        const sundayCell = document.createElement('td');
+        sundayCell.className = 'schedule-cell';
+        sundayCell.dataset.day = 1;
+        sundayCell.dataset.period = slot.period;
+        sundayCell.addEventListener('dragover', handleDragOver);
+        sundayCell.addEventListener('drop', handleDrop);
+        sundayCell.addEventListener('dragleave', handleDragLeave);
+        row.appendChild(sundayCell);
         tbody.appendChild(row);
     });
     renderSchedule();
@@ -627,7 +637,7 @@ function performAddSubjects(subjectsToAdd, originalSubject) {
         allConflicts.push(...conflicts);
     });
     if (allConflicts.length > 0) {
-        const conflictMessages = allConflicts.map(c => `${c.code} - Thứ ${c.day + 1}, Tiết ${c.period}`);
+        const conflictMessages = allConflicts.map(c => `${c.code} - Thứ ${c.day}, Tiết ${c.period}`);
         logWarn('Schedule conflicts found:', conflictMessages);
         if (!confirm(`Có xung đột lịch học:\n${conflictMessages.join('\n')}\n\nBạn có muốn tiếp tục?`)) {
             return;
@@ -825,7 +835,7 @@ function exportScheduleToExcel() {
                 sessionIndex === 0 ? subject.id : '',
                 sessionIndex === 0 ? subject.class_number : '',
                 sessionIndex === 0 ? subject.instructor : '',
-                `Thứ ${session.day === 7 ? 'CN' : session.day + 1}`,
+                `Thứ ${session.day}`,
                 session.period,
                 session.room
             ]);
