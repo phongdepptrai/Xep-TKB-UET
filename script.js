@@ -243,6 +243,7 @@ function renderSubjectsList() {
     let filteredSubjects = sampleSubjects.filter(subject => {
         const matchesSearch = subject.code.toLowerCase().includes(searchTerm) ||
                             subject.name.toLowerCase().includes(searchTerm) ||
+                            subject.id.toLowerCase().includes(searchTerm) ||
                             (subject.instructor && subject.instructor.toLowerCase().includes(searchTerm)) ||
                             (subject.program && subject.program.toLowerCase().includes(searchTerm));
         const matchesFilter = activeFilter === 'all' || subject.type === activeFilter;
