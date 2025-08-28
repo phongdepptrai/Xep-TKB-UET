@@ -1,0 +1,41 @@
+# Development files
+*.py
+*.pyc
+__pycache__/
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# PDF files (original documents)
+*.pdf
+
+# Backup files
+*.bak
+*.backup
+
+# Node modules (if any)
+node_modules/
+
+# Excel export files (user generated)
+TKB_UET_HKI_*.xlsx
+
+# txt files
+*.txt
+
+#python
+*.py
+*.pyc
+__pycache__/

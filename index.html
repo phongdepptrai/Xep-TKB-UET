@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Thời Khóa Biểu - UET</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Quản Lý Thời Khóa Biểu UET</h1>
+            <p>Học kỳ I - Năm học 2025-2026</p>
+        </header>
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>🎯 Danh Sách Môn Học</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm môn học...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="major">Chuyên ngành</button>
+                    <button class="filter-btn" data-filter="general">Đại cương</button>
+                    <button class="filter-btn" data-filter="elective">Tự chọn</button>
+                </div>
+                <div class="subjects-list" id="subjectsList">
+                </div>
+                <div class="actions">
+                    <button id="loadCSV" class="btn btn-success">📊 Tải CSV</button>
+                    <button id="downloadTemplate" class="btn btn-secondary">📄 Mẫu CSV</button>
+                    <button id="importPDF" class="btn btn-primary">📄 Đọc PDF</button>
+                    <button id="exportExcel" class="btn btn-success">📊 Xuất Excel</button>
+                    <button id="clearSchedule" class="btn btn-danger">🗑️ Xóa TKB</button>
+                    <button id="saveSchedule" class="btn btn-success">💾 Lưu TKB</button>
+                    <button id="loadSchedule" class="btn btn-primary">📂 Tải TKB</button>
+                </div>
+            </div>
+            <div class="schedule-container">
+                <h2>📅 Thời Khóa Biểu Của Tôi</h2>
+                <div class="schedule-info">
+                    <div class="info-item">
+                        <span>Tổng số tín chỉ: </span>
+                        <span id="totalCredits">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span>Số môn đã chọn: </span>
+                        <span id="totalSubjects">0</span>
+                    </div>
+                </div>
+                <div class="schedule-table-container">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Tiết</th>
+                                <th>Thứ 2</th>
+                                <th>Thứ 3</th>
+                                <th>Thứ 4</th>
+                                <th>Thứ 5</th>
+                                <th>Thứ 6</th>
+                                <th>Thứ 7</th>
+                                <th>Chủ nhật</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scheduleBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="subjectModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3 id="modalTitle">Thông tin môn học</h3>
+                <div id="modalBody">
+                </div>
+                <div class="modal-actions">
+                    <button id="addToSchedule" class="btn btn-success">Thêm vào TKB</button>
+                    <button id="closeModal" class="btn btn-secondary">Đóng</button>
+                </div>
+            </div>
+        </div>
+        <div id="toast" class="toast"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
