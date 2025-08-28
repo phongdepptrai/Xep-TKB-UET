@@ -259,14 +259,39 @@ function renderSubjectsList() {
         countElement.textContent = `${filteredSubjects.length} môn học`;
     }
 }
+function hasScheduleConflict(subject) {
+    if (selectedSubjects.length === 0) return false;
+    
+    // Lấy tất cả môn học cùng LHP để kiểm tra toàn bộ
+    const allSameLHPSubjects = sampleSubjects.filter(s => s.id === subject.id);
+    
+    for (const checkSubject of allSameLHPSubjects) {
+        for (const session of checkSubject.sessions) {
+            for (const selectedSubject of selectedSubjects) {
+                for (const selectedSession of selectedSubject.sessions) {
+                    if (session.day === selectedSession.day && 
+                        session.period === selectedSession.period) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
 function createSubjectElement(subject) {
     const div = document.createElement('div');
     div.className = 'subject-item';
     div.dataset.subjectId = subject.id;
     div.draggable = true;
     const isSelected = selectedSubjects.some(s => s.id === subject.id);
+    const hasConflict = !isSelected && hasScheduleConflict(subject);
+    
     if (isSelected) {
         div.classList.add('selected');
+    } else if (hasConflict) {
+        div.classList.add('conflict');
+        div.title = '⚠️ Môn học này có lịch trùng với môn đã chọn';
     }
     div.innerHTML = `
         <div class="subject-code">${subject.code}</div>

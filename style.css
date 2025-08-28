@@ -114,6 +114,16 @@ header p {
     background: #e3f2fd;
     border-color: #2196f3;
 }
+.subject-item.conflict {
+    background: #fff3cd;
+    border-color: #ffc107;
+    border-left: 4px solid #ff9800;
+}
+.subject-item.conflict:hover {
+    background: #ffeaa7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
 .subject-code {
     font-weight: bold;
     color: #2c3e50;
