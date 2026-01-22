@@ -177,18 +177,10 @@ function loadSampleData() {
     console.log(`📚 Đã tải ${sampleSubjects.length} môn học mẫu`);
 }
 const timeSlots = [
-    { period: 1, time: '07:00 - 07:50' },
-    { period: 2, time: '07:55 - 08:45' },
-    { period: 3, time: '08:50 - 09:40' },
-    { period: 4, time: '09:45 - 10:35' },
-    { period: 5, time: '10:40 - 11:30' },
-    { period: 6, time: '11:35 - 12:25' },
-    { period: 7, time: '13:00 - 13:50' },
-    { period: 8, time: '13:55 - 14:45' },
-    { period: 9, time: '14:50 - 15:40' },
-    { period: 10, time: '15:45 - 16:35' },
-    { period: 11, time: '16:40 - 17:30' },
-    { period: 12, time: '17:35 - 18:25' }
+    { period: 1, time: '07:00 - 09:40' },
+    { period: 2, time: '09:45 - 12:25' },
+    { period: 3, time: '13:00 - 15:40' },
+    { period: 4, time: '15:45 - 18:25' }
 ];
 let selectedSubjects = [];
 let currentSchedule = {};
@@ -363,10 +355,10 @@ function showGroupSelectionModal(subject, clSubjects, n1Subjects, n2Subjects) {
     groupHTML += `
                     </div>
                 </div>
-                <div class="group-option" data-group="n2">
+                <div class="group-option" data-group="2">
                     <div class="group-header">
-                        <input type="radio" name="practiceGroup" value="n2" id="group-n2">
-                        <label for="group-n2"><strong>🔬 Nhóm N2</strong></label>
+                        <input type="radio" name="practiceGroup" value="2" id="group-2">
+                        <label for="group-2"><strong>🔬 Nhóm 2</strong></label>
                     </div>
                     <div class="group-schedule">
     `;
@@ -408,13 +400,13 @@ function showGroupSelectionModal(subject, clSubjects, n1Subjects, n2Subjects) {
         let subjectsToAdd = [...clSubjects];
         let message = '';
         switch (selectedGroup.value) {
-            case 'n1':
+            case '1':
                 subjectsToAdd.push(...n1Subjects);
-                message = `Đã thêm lớp CL + nhóm N1 cho ${subject.id}`;
+                message = `Đã thêm lớp CL + nhóm 1 cho ${subject.id}`;
                 break;
-            case 'n2':
+            case '2':
                 subjectsToAdd.push(...n2Subjects);
-                message = `Đã thêm lớp CL + nhóm N2 cho ${subject.id}`;
+                message = `Đã thêm lớp CL + nhóm 2 cho ${subject.id}`;
                 break;
             case 'cl-only':
                 message = `Đã thêm chỉ lớp chung cho ${subject.id}`;
@@ -441,8 +433,8 @@ function showSubjectModal(subject) {
     title.textContent = `[${subject.id}] ${subject.code} - ${subject.name}`;
     const allSameLHPSubjects = sampleSubjects.filter(s => s.id === subject.id);
     const clSubjects = allSameLHPSubjects.filter(s => s.class_number === 'CL');
-    const n1Subjects = allSameLHPSubjects.filter(s => s.class_number === 'N1');
-    const n2Subjects = allSameLHPSubjects.filter(s => s.class_number === 'N2');
+    const n1Subjects = allSameLHPSubjects.filter(s => s.class_number === '1');
+    const n2Subjects = allSameLHPSubjects.filter(s => s.class_number === '2');
     let scheduleHTML = '<div><strong>Lịch học:</strong></div>';
     if (clSubjects.length > 0) {
         scheduleHTML += '<div style="margin-top: 8px;"><strong>🏛️ Lớp chung (CL):</strong></div><ul>';
@@ -456,7 +448,7 @@ function showSubjectModal(subject) {
     if (n1Subjects.length > 0 || n2Subjects.length > 0) {
         scheduleHTML += '<div style="margin-top: 8px;"><strong>🧪 Nhóm thực hành (chọn 1):</strong></div>';
         if (n1Subjects.length > 0) {
-            scheduleHTML += '<div style="margin-left: 15px;"><strong>Nhóm N1:</strong></div><ul>';
+            scheduleHTML += '<div style="margin-left: 15px;"><strong>Nhóm 1:</strong></div><ul>';
             n1Subjects.forEach(s => {
                 s.sessions.forEach(session => {
                     scheduleHTML += `<li>Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
@@ -465,7 +457,7 @@ function showSubjectModal(subject) {
             scheduleHTML += '</ul>';
         }
         if (n2Subjects.length > 0) {
-            scheduleHTML += '<div style="margin-left: 15px;"><strong>Nhóm N2:</strong></div><ul>';
+            scheduleHTML += '<div style="margin-left: 15px;"><strong>Nhóm 2:</strong></div><ul>';
             n2Subjects.forEach(s => {
                 s.sessions.forEach(session => {
                     scheduleHTML += `<li>Thứ ${session.day}, Tiết ${session.period}, Phòng ${session.room} - ${s.instructor}</li>`;
@@ -497,10 +489,10 @@ function showSubjectModal(subject) {
     if (!isAlreadySelected) {
         if (subject.class_number === 'CL') {
             addBtn.textContent = 'Thêm lớp chung';
-        } else if (subject.class_number === 'N1') {
-            addBtn.textContent = 'Thêm CL + N1';
-        } else if (subject.class_number === 'N2') {
-            addBtn.textContent = 'Thêm CL + N2';
+        } else if (subject.class_number === '1') {
+            addBtn.textContent = 'Thêm CL + 1';
+        } else if (subject.class_number === '2') {
+            addBtn.textContent = 'Thêm CL + 2';
         } else {
             addBtn.textContent = 'Thêm vào TKB';
         }
@@ -612,12 +604,12 @@ function addSubjectToSchedule(subject) {
     const allSameLHPSubjects = sampleSubjects.filter(s => s.id === subject.id);
     logDebug('All same LHP subjects found:', allSameLHPSubjects.length);
     const clSubjects = allSameLHPSubjects.filter(s => s.class_number === 'CL');
-    const n1Subjects = allSameLHPSubjects.filter(s => s.class_number === 'N1');
-    const n2Subjects = allSameLHPSubjects.filter(s => s.class_number === 'N2');
+    const n1Subjects = allSameLHPSubjects.filter(s => s.class_number === '1');
+    const n2Subjects = allSameLHPSubjects.filter(s => s.class_number === '2');
     logDebug('Groups found:', {
         CL: clSubjects.length,
-        N1: n1Subjects.length,
-        N2: n2Subjects.length
+        "1": n1Subjects.length,
+        "2": n2Subjects.length
     });
     let subjectsToAdd = [];
     if (subject.class_number === 'CL') {
@@ -629,23 +621,23 @@ function addSubjectToSchedule(subject) {
         }
         else if (n1Subjects.length > 0) {
             subjectsToAdd.push(...n1Subjects);
-            showToast(`Đã thêm lớp CL + N1 cho ${subject.id}`, 'info');
+            showToast(`Đã thêm lớp CL + 1 cho ${subject.id}`, 'info');
         }
         else if (n2Subjects.length > 0) {
             subjectsToAdd.push(...n2Subjects);
-            showToast(`Đã thêm lớp CL + N2 cho ${subject.id}`, 'info');
+            showToast(`Đã thêm lớp CL + 2 cho ${subject.id}`, 'info');
         }
         else {
             showToast(`Đã thêm ${clSubjects.length} tiết học cho lớp ${subject.id}`, 'info');
         }
-    } else if (subject.class_number === 'N1' || subject.class_number === 'N2') {
+    } else if (subject.class_number === '1' || subject.class_number === '2') {
         subjectsToAdd = [...clSubjects];
-        if (subject.class_number === 'N1') {
+        if (subject.class_number === '1') {
             subjectsToAdd.push(...n1Subjects);
-            showToast(`Đã thêm lớp CL + nhóm N1 cho ${subject.id}`, 'info');
+            showToast(`Đã thêm lớp CL + nhóm 1 cho ${subject.id}`, 'info');
         } else {
             subjectsToAdd.push(...n2Subjects);
-            showToast(`Đã thêm lớp CL + nhóm N2 cho ${subject.id}`, 'info');
+            showToast(`Đã thêm lớp CL + nhóm 2 cho ${subject.id}`, 'info');
         }
     } else {
         subjectsToAdd = [subject];
