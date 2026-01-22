@@ -574,8 +574,9 @@ function createClassItem(subject, session) {
     const div = document.createElement('div');
     div.className = 'class-item';
     div.dataset.subjectId = subject.id;
+    const displayCode = subject.id || subject.code; // Ưu tiên mã LHP để phân biệt các nhóm
     div.innerHTML = `
-        <div class="class-code">${subject.code}</div>
+        <div class="class-code">${displayCode}</div>
         <div class="class-name">${subject.name}</div>
         <div class="class-room">${session.room}</div>
         ${subject.instructor ? `<div class="class-instructor">${subject.instructor}</div>` : ''}
