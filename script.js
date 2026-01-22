@@ -894,7 +894,11 @@ function clearSchedule() {
 }
 function saveSchedule() {
     const scheduleData = {
-        subjects: selectedSubjects.map(s => s.id),
+        // Lưu cả mã lớp học phần và nhóm để khôi phục đúng lớp thực hành
+        subjects: selectedSubjects.map(s => ({
+            id: s.id,
+            class_number: s.class_number || null
+        })),
         timestamp: new Date().toISOString()
     };
     localStorage.setItem('uet_schedule', JSON.stringify(scheduleData));
@@ -936,8 +940,18 @@ function loadSavedSchedule() {
 function loadScheduleFromData(data) {
     if (data.subjects && Array.isArray(data.subjects)) {
         selectedSubjects = [];
-        data.subjects.forEach(subjectId => {
-            const subject = sampleSubjects.find(s => s.id === subjectId);
+        data.subjects.forEach(item => {
+            // Hỗ trợ cả định dạng cũ (string id) và mới ({id, class_number})
+            const id = typeof item === 'string' ? item : item.id;
+            const classNumber = typeof item === 'object' ? item.class_number : null;
+
+            let subject = null;
+            if (classNumber) {
+                subject = sampleSubjects.find(s => s.id === id && s.class_number === classNumber);
+            }
+            if (!subject) {
+                subject = sampleSubjects.find(s => s.id === id);
+            }
             if (subject) {
                 selectedSubjects.push(subject);
             }
