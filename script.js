@@ -726,8 +726,18 @@ function checkScheduleConflicts() {
     });
 }
 function updateScheduleInfo() {
-    const totalCredits = selectedSubjects.reduce((sum, subject) => sum + subject.credits, 0);
-    const totalSubjects = selectedSubjects.length;
+    // Nhóm các môn theo mã học phần (code) để tránh tính trùng tín chỉ
+    const uniqueCodes = new Set();
+    let totalCredits = 0;
+    
+    selectedSubjects.forEach(subject => {
+        if (!uniqueCodes.has(subject.code)) {
+            uniqueCodes.add(subject.code);
+            totalCredits += subject.credits;
+        }
+    });
+    
+    const totalSubjects = uniqueCodes.size; // Số môn thực tế (không tính trùng CL, N1, N2)
     document.getElementById('totalCredits').textContent = totalCredits;
     document.getElementById('totalSubjects').textContent = totalSubjects;
 }
