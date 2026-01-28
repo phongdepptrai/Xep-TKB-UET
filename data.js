@@ -792,11 +792,11 @@ const UET_SUBJECTS_DATA = [
     "ma_hoc_phan": "THL1057",
     "hoc_phan": "Nhà nước và Pháp luật đại cương",
     "so_tin_chi": 2,
-    "ma_lhp": "THL1057 1",
+    "ma_lhp": "THL1057 5",
     "giang_vien": "Viện Khảo thí",
     "so_sv_du_kien": "65",
-    "thu": "",
-    "tiet": "",
+    "thu": "CN",
+    "tiet": "4",
     "giang_duong": "ONL",
     "nhom": "CL",
     "ghi_chu": "Học 1 ca/10 tuần, thi đợt 1"
@@ -25566,7 +25566,35 @@ const UET_SUBJECTS_DATA = [
     "giang_duong": "Tiết 9-10",
     "nhom": "CL",
     "ghi_chu": "Học 15 tuần"
-  }
+  },
+  {
+    "stt": "1827",
+    "ma_hoc_phan": "ELT3144",
+    "hoc_phan": "Xử lý tín hiệu số",
+    "so_tin_chi": 4,
+    "ma_lhp": "ELT3144 70",
+    "giang_vien": "Trần Thị Thuý Quỳnh",
+    "so_sv_du_kien": "60",
+    "thu": "4",
+    "tiet": "3",
+    "giang_duong": "404-B",
+    "nhom": "CL",
+    "ghi_chu": "Học 1 ca/15 tuần, thi đợt 2"
+  },
+  {
+    "stt": "1828",
+    "ma_hoc_phan": "ELT3144",
+    "hoc_phan": "Xử lý tín hiệu số",
+    "so_tin_chi": 4,
+    "ma_lhp": "ELT3144 70",
+    "giang_vien": "Trần Thị Thuý Quỳnh",
+    "so_sv_du_kien": "60",
+    "thu": "2",
+    "tiet": "4",
+    "giang_duong": "203-B",
+    "nhom": "CL",
+    "ghi_chu": "Học 1 ca/15 tuần, thi đợt 2"
+  },
 ];
 
 // Xuất dữ liệu để sử dụng

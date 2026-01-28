@@ -126,7 +126,7 @@ function createSessionsFromSimpleData(item) {
     let dayNum = 0;
     if (thu && thu.toString().trim()) {
         if (thu === 'CN') {
-            dayNum = 7;
+            dayNum = 1;
         } else if (thu.toString().match(/^\d+$/)) {
             dayNum = parseInt(thu);
         }
