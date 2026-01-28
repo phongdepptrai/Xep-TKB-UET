@@ -25576,7 +25576,7 @@ const UET_SUBJECTS_DATA = [
     "giang_vien": "Trần Thị Thuý Quỳnh",
     "so_sv_du_kien": "60",
     "thu": "4",
-    "tiet": "3",
+    "tiet": "4",
     "giang_duong": "404-B",
     "nhom": "CL",
     "ghi_chu": "Học 1 ca/15 tuần, thi đợt 2"
@@ -25589,7 +25589,7 @@ const UET_SUBJECTS_DATA = [
     "ma_lhp": "ELT3144 70",
     "giang_vien": "Trần Thị Thuý Quỳnh",
     "so_sv_du_kien": "60",
-    "thu": "2",
+    "thu": "5",
     "tiet": "4",
     "giang_duong": "203-B",
     "nhom": "CL",
